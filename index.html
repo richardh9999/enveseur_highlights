@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enveseur Group — Performance Highlights 2025–26</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --ink: #1c1c1a;
+  --ink-soft: #4a4a46;
+  --ink-faint: #8a8a84;
+  --paper: #faf9f6;
+  --paper-warm: #f3f1eb;
+  --rule: #dedad2;
+  --accent: #1a4a2e;
+  --accent-mid: #2d7a4f;
+  --accent-light: #e8f3ec;
+  --gold: #8a6c1a;
+  --gold-light: #f7f0dc;
+  --blue: #1a2f4a;
+  --blue-light: #e8eef5;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.page { max-width: 860px; margin: 0 auto; padding: 64px 48px; }
+
+/* Header */
+.masthead {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  padding-bottom: 32px;
+  margin-bottom: 56px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.masthead-left h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 38px;
+  font-weight: normal;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.masthead-left p {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  letter-spacing: .03em;
+}
+.masthead-right {
+  text-align: right;
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: .04em;
+  line-height: 1.8;
+}
+
+/* Section */
+.section {
+  margin: 60px 0 0;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.section-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 11px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.section-header h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  font-weight: normal;
+  color: var(--ink);
+}
+
+/* Stat blocks */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 28px;
+}
+.stat-row-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat {
+  background: var(--paper);
+  padding: 24px 22px 20px;
+}
+.stat-val {
+  font-family: 'DM Serif Display', serif;
+  font-size: 34px;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-val.green { color: var(--accent); }
+.stat-val.gold { color: var(--gold); }
+.stat-label {
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.stat-sub {
+  font-size: 12px;
+  color: var(--accent-mid);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* Callout */
+.callout {
+  background: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  padding: 20px 24px;
+  margin: 24px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.callout strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+.callout-gold {
+  background: var(--gold-light);
+  border-left-color: var(--gold);
+}
+.callout-gold strong { color: var(--gold); }
+.callout-blue {
+  background: var(--blue-light);
+  border-left-color: var(--blue);
+}
+.callout-blue strong { color: var(--blue); }
+
+/* Body copy */
+.body-copy {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+.body-copy + .body-copy { margin-top: -4px; }
+
+/* Chart */
+.chart-wrap { margin: 28px 0; }
+.chart-label {
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.chart-legend {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.chart-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.chart-legend i {
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+/* Country pills */
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 20px 0;
+}
+.country-card {
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.country-card .cc { font-weight: 500; font-size: 13px; margin-bottom: 2px; }
+.country-card .cv { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--accent); }
+.country-card .cs { font-size: 11px; color: var(--ink-faint); }
+
+/* Divider */
+.rule { border: none; border-top: 1px solid var(--rule); margin: 48px 0; }
+
+/* Footer */
+footer {
+  margin-top: 72px;
+  padding-top: 24px;
+  border-top: 1.5px solid var(--ink);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: .04em;
+}
+
+/* Animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section { animation: fadeUp 0.4s ease both; }
+.section:nth-child(1) { animation-delay: .05s; }
+.section:nth-child(2) { animation-delay: .1s; }
+.section:nth-child(3) { animation-delay: .15s; }
+.section:nth-child(4) { animation-delay: .2s; }
+.section:nth-child(5) { animation-delay: .25s; }
+
+@media (max-width: 600px) {
+  .page { padding: 32px 20px; }
+  .masthead { grid-template-columns: 1fr; gap: 16px; }
+  .masthead-right { text-align: left; }
+  .stat-row { grid-template-columns: repeat(2,1fr); }
+  .stat-row-4 { grid-template-columns: repeat(2,1fr); }
+  footer { grid-template-columns: 1fr; gap: 8px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <div class="masthead-left">
+      <h1>Enveseur Group<br><em>Performance Highlights</em></h1>
+      <p>Financial year April 2025 – March 2026</p>
+    </div>
+    <div class="masthead-right">
+      Packaging &amp; Envelope Specialists<br>
+      UK · Spain · Slovakia<br>
+      30+ Shopify stores across Europe
+    </div>
+  </div>
+
+  <!-- STORY 1: GROWTH -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>A year of sustained, profitable growth</h2>
+    </div>
+
+    <div class="stat-row stat-row-4">
+      <div class="stat">
+        <div class="stat-val green">€5.36M</div>
+        <div class="stat-label">Net revenue</div>
+        <div class="stat-sub">+15.3% year on year</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val green">70,636</div>
+        <div class="stat-label">Orders fulfilled</div>
+        <div class="stat-sub">+17.4% year on year</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">74.9%</div>
+        <div class="stat-label">Gross profit margin</div>
+        <div class="stat-sub">Stable, improving +0.4pp</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">48.1M</div>
+        <div class="stat-label">Units shipped</div>
+        <div class="stat-sub">+9.0% volume growth</div>
+      </div>
+    </div>
+
+    <p class="body-copy">Enveseur delivered its strongest year of growth in recent memory, with net revenue rising from €4.64M to €5.36M — an increase of €712K. Order volumes grew at an even faster rate of +17.4%, reflecting an expanding B2B customer base across Europe. Critically, this growth was achieved while maintaining a gross profit margin of 74.9%, demonstrating the inherent scalability of the business model.</p>
+
+    <div class="callout">
+      <strong>In operational terms:</strong> the business fulfilled an average of 283 orders per working day, generating approximately €21,400 in daily net revenue — every day, consistently, across 26 active markets.
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- STORY 2: GEOGRAPHIC -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>A growing pan-European footprint</h2>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-val green">26</div>
+        <div class="stat-label">Active markets</div>
+        <div class="stat-sub">Up from 23 prior year</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val green">5</div>
+        <div class="stat-label">Markets growing &gt;15%</div>
+        <div class="stat-sub">With meaningful revenue bases</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">€5.36M</div>
+        <div class="stat-label">Revenue across Europe</div>
+        <div class="stat-sub">No single market &gt;20% of total</div>
+      </div>
+    </div>
+
+    <p class="body-copy">The business operates across 26 European markets, with no single country accounting for more than 20% of total revenue. This geographic diversification provides meaningful resilience against market-specific headwinds and reflects deliberate multi-country e-commerce infrastructure built over several years.</p>
+
+    <p class="body-copy">Several established markets delivered strong growth in the year, complemented by new market entry into Australia, New Zealand and the United States.</p>
+
+    <div class="country-grid">
+      <div class="country-card">
+        <div class="cc">Hungary</div>
+        <div class="cv">+52%</div>
+        <div class="cs">€125K · GP 89% · accelerating</div>
+      </div>
+      <div class="country-card">
+        <div class="cc">Czech Republic</div>
+        <div class="cv">+18%</div>
+        <div class="cs">€218K · GP 81% · strong base</div>
+      </div>
+      <div class="country-card">
+        <div class="cc">Portugal</div>
+        <div class="cv">+16%</div>
+        <div class="cs">€95K · consistent momentum</div>
+      </div>
+      <div class="country-card">
+        <div class="cc">Spain</div>
+        <div class="cv">+13%</div>
+        <div class="cs">€713K · 2nd largest market</div>
+      </div>
+      <div class="country-card">
+        <div class="cc">Denmark</div>
+        <div class="cv">+13%</div>
+        <div class="cs">€121K · GP 79% · stable</div>
+      </div>
+      <div class="country-card">
+        <div class="cc">Australia</div>
+        <div class="cv">New</div>
+        <div class="cs">€23K in first full year · growing</div>
+      </div>
+    </div>
+
+    <div class="callout callout-gold">
+      <strong>Hungary is the standout story:</strong> revenue has grown +52% to €125K with gross profit margins of 88.9% — among the highest in the portfolio — and the trajectory is accelerating, with January to March 2026 alone up +154% on the same period last year.
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- STORY 3: Q1 2026 MOMENTUM -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>January–March 2026: a clear inflection point</h2>
+    </div>
+
+    <p class="body-copy">A note on framing: Enveseur's financial year runs April to March, so January–March 2026 is the final quarter of the 2025–26 financial year. For clarity throughout this document, we refer to it simply as <em>January–March 2026</em> — the first calendar quarter of the year, and the period that most clearly signals where the business is heading.</p>
+
+    <div class="stat-row stat-row-4">
+      <div class="stat">
+        <div class="stat-val green">€1.28M</div>
+        <div class="stat-label">Jan–Mar 2026 revenue</div>
+        <div class="stat-sub">+10.8% vs Jan–Mar 2025</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val green">73.3%</div>
+        <div class="stat-label">GP after all costs</div>
+        <div class="stat-sub">+2.2pp vs Jan–Mar 2025</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val green">12.5%</div>
+        <div class="stat-label">Marketing cost ratio</div>
+        <div class="stat-sub">Below prior year for first time</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">17,771</div>
+        <div class="stat-label">Orders Jan–Mar 2026</div>
+        <div class="stat-sub">+8.0% vs Jan–Mar 2025</div>
+      </div>
+    </div>
+
+    <p class="body-copy">January to March 2026 marked a clear inflection point. Throughout 2025, Enveseur invested heavily in customer acquisition and geographic expansion — deliberately accepting short-term margin compression to build market presence. By January 2026, that investment was paying off: profitability after all costs exceeded the equivalent period of the prior year for the first time, and marketing spend as a proportion of revenue fell below the prior year level.</p>
+
+    <div class="chart-wrap">
+      <div class="chart-label">GP after delivery &amp; marketing costs — by period</div>
+      <div class="chart-legend">
+        <span><i style="background:#1a4a2e"></i>2025–26</span>
+        <span><i style="background:#b8cdc0;border:1px dashed #6a9c7a"></i>2024–25</span>
+      </div>
+      <div style="position:relative;height:180px"><canvas id="cQ4" role="img" aria-label="GP after costs by period. Apr-Jun 69% vs prior 85%. Jan-Mar 2026 73.3% vs prior 71.1% — first period above prior year.">January–March 2026 is the first period where profitability exceeded the prior year.</canvas></div>
+    </div>
+
+    <div class="callout callout-blue">
+      <strong>The direction of travel is clear:</strong> with marketing investment now optimised and January–March 2026 profitability surpassing the equivalent prior year period, the business enters its new financial year with improving unit economics, a larger order base, and well-established market presence across 26 countries.
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- STORY 4: CUSTOMER BASE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2>A deep and growing B2B customer base</h2>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-val green">46,110</div>
+        <div class="stat-label">New customer orders</div>
+        <div class="stat-sub">+24.0% year on year</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">26,866</div>
+        <div class="stat-label">Returning customer orders</div>
+        <div class="stat-sub">Avg order value €134.78</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val gold">€3.62M</div>
+        <div class="stat-label">Returning customer revenue</div>
+        <div class="stat-sub">+15.8% — loyal base growing</div>
+      </div>
+    </div>
+
+    <p class="body-copy">Enveseur serves a predominantly B2B customer base across Europe, with returning customers representing 68% of total revenue. The high average order value from returning customers — €134.78 — reflects the B2B nature of the business and the repeat purchasing behaviour of businesses managing ongoing packaging requirements.</p>
+
+    <p class="body-copy">New customer acquisition accelerated significantly during the year, with new customer orders growing +24% — a leading indicator of future revenue as new customers transition to repeat purchasing. Both segments grew consistently throughout the year, with no quarter showing contraction in either cohort.</p>
+
+    <div class="callout">
+      <strong>Customer cohort health:</strong> returning customers placed 26,866 orders at an average value of €134.78, with gross profit margins of 72.3%. New customers placed 46,110 orders — more than the total order count from both segments in the prior year — demonstrating the scale of customer acquisition during the period.
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- STORY 5: OPERATIONAL SCALE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2>Operational scale and infrastructure</h2>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-val">3</div>
+        <div class="stat-label">Warehouse countries</div>
+        <div class="stat-sub">UK · Spain · Slovakia</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val green">30+</div>
+        <div class="stat-label">Shopify stores</div>
+        <div class="stat-sub">Localised for each market</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">48.1M</div>
+        <div class="stat-label">Units shipped this year</div>
+        <div class="stat-sub">+9% volume on prior year</div>
+      </div>
+    </div>
+
+    <p class="body-copy">The business operates a distributed European fulfilment infrastructure with warehouses in the United Kingdom, Spain and Slovakia, enabling efficient delivery across all 26 active markets. Customer-facing operations run through more than 30 localised Shopify storefronts, each configured for local language, currency and product range.</p>
+
+    <p class="body-copy">Delivery income grew +29.5% to €616K in the year, reflecting the increased volume of orders and the efficiency of fulfilment operations at scale. This infrastructure — built and refined over several years — represents a significant operational asset that supports continued growth without proportional increases in fixed cost.</p>
+
+    <div class="callout callout-gold">
+      <strong>Scale in perspective:</strong> 48.1 million individual units shipped across 26 countries from three warehouses, fulfilling 283 orders every working day. The logistics infrastructure is proven, scalable, and already in place.
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- STORY 6: HIGH MARGIN MARKETS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2>High-margin markets growing strongly</h2>
+    </div>
+
+    <p class="body-copy">A distinguishing feature of the Enveseur model is the high gross profit margin achieved across the portfolio. Several of the fastest-growing markets combine strong revenue growth with above-average margins, a combination that directly compounds earnings as these markets scale.</p>
+
+    <div class="country-grid">
+      <div class="country-card">
+        <div class="cc">Hungary</div>
+        <div class="cv">88.9% GP</div>
+        <div class="cs">+52% growth · €125K revenue</div>
+      </div>
+      <div class="country-card">
+        <div class="cc">Poland</div>
+        <div class="cv">83.6% GP</div>
+        <div class="cs">+8% growth · €129K revenue</div>
+      </div>
+      <div class="country-card">
+        <div class="cc">Czech Republic</div>
+        <div class="cv">81.2% GP</div>
+        <div class="cs">+18% growth · €218K revenue</div>
+      </div>
+      <div class="country-card">
+        <div class="cc">Finland</div>
+        <div class="cv">79.4% GP</div>
+        <div class="cs">Stable · €52K revenue</div>
+      </div>
+      <div class="country-card">
+        <div class="cc">Ireland</div>
+        <div class="cv">79.8% GP</div>
+        <div class="cs">Established market · €188K</div>
+      </div>
+      <div class="country-card">
+        <div class="cc">Belgium</div>
+        <div class="cv">79.9% GP</div>
+        <div class="cs">+6% growth · €134K revenue</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Group gross profit of €4.01M</strong> on €5.36M revenue represents a 74.9% gross margin — a structural characteristic of the business that reflects both proprietary product sourcing and the scalability of the e-commerce model. This margin has been stable or improving across consecutive years.
+    </div>
+  </div>
+
+  <footer>
+    <span>Enveseur Group &nbsp;·&nbsp; Performance Highlights 2025–26 &nbsp;·&nbsp; Confidential</span>
+    <span>Data source: consolidated group sales data Apr 2025 – Mar 2026</span>
+  </footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+new Chart(document.getElementById('cQ4'), {
+  type: 'bar',
+  data: {
+    labels: ['Apr–Jun 2025', 'Jul–Sep 2025', 'Oct–Dec 2025', 'Jan–Mar 2026'],
+    datasets: [
+      {
+        label: 'This year',
+        data: [69.0, 66.3, 70.6, 73.3],
+        backgroundColor: ['#b8cdc0','#b8cdc0','#b8cdc0','#1a4a2e'],
+        borderRadius: 3
+      },
+      {
+        label: 'Prior year',
+        data: [85.0, 73.1, 72.9, 71.1],
+        backgroundColor: 'rgba(0,0,0,0.07)',
+        borderRadius: 3
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: {
+        min: 60,
+        ticks: { callback: v => v + '%', font: { size: 11 } },
+        grid: { color: 'rgba(0,0,0,0.06)' }
+      },
+      x: {
+        ticks: { font: { size: 11 } },
+        grid: { display: false }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
